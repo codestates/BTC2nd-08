@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import NavMenu from './NavMenu';
+import Search from '../Searchbar';
 
 const wrapper = {
   position: 'sticky',
@@ -19,7 +20,7 @@ const wrapper = {
 };
 
 const leftItemsCss = {
-  m: '1.5rem 0 1.2rem 4rem',
+  m: '1.5rem 0 1.2rem 15vw',
   display: 'flex',
   justifyContent: 'space-between',
 };
@@ -27,15 +28,15 @@ const leftItemsCss = {
 const rightItemsCss = {
   display: 'flex',
   justifyContent: 'space-between',
-  margin: '1.4rem 6rem auto',
-  width: '15vw',
-  minWidth: '10vw',
+  margin: '1.4rem 15vw auto',
+  width: '13vw',
+  minWidth: '13rem',
 };
 
 function Navbar() {
   return (
     <Box sx={wrapper}>
-      <Box sx={leftItemsCss}></Box>
+      <Box sx={leftItemsCss}>{/* <Search /> */}</Box>
       <Box sx={rightItemsCss}>
         <NavMenu text="Blocks" />
         <NavMenu text="Transactions" />
