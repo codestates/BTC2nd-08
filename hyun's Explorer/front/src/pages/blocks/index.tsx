@@ -12,6 +12,7 @@ import { Typography } from '@mui/material';
 
 import { getLastBlocks } from '../../api';
 import Loading from '../../components/Loading';
+import CustomTooltip from '../../components/CustomTooltip';
 
 const wrapper = {
   width: '70vw',
@@ -28,6 +29,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: '1.1rem',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 }));
 
@@ -83,30 +86,61 @@ export default function CustomizedTables() {
               <TableRow>
                 <StyledTableCell>Block Hash</StyledTableCell>
                 <StyledTableCell>Slot</StyledTableCell>
-                <StyledTableCell>Tx Count</StyledTableCell>
+                <StyledTableCell sx={{ minWidth: '5rem' }}>
+                  Tx Count
+                </StyledTableCell>
                 <StyledTableCell>Leader</StyledTableCell>
-                <StyledTableCell align="right">Reward (Sol)</StyledTableCell>
+                <StyledTableCell sx={{ minWidth: '5rem' }} align="right">
+                  Reward (Sol)
+                </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((block: IScanData) => (
-                <StyledTableRow key={block.currentSlot}>
-                  <StyledTableCell component="th" scope="block">
-                    {block.result.blockhash
-                      ? block.result.blockhash
-                      : '❗' + block.result.message}
-                  </StyledTableCell>
-                  <StyledTableCell>{block.currentSlot}</StyledTableCell>
-                  <StyledTableCell>
-                    {block.result.transactionCount}
-                  </StyledTableCell>
-                  <StyledTableCell>{block.result.validator}</StyledTableCell>
-                  <StyledTableCell align="right">
-                    {block.result.feeRewards &&
-                      (block.result.feeRewards * 0.000000001).toFixed(7)}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
+              {data.map((block: IScanData) => {
+                const blockHash =
+                  block.result.blockhash ?? '❗' + block.result.message;
+                const blockLeader = block.result.validator ?? 'Skipped slot';
+
+                console.log(block.result.validator ?? 123);
+                return (
+                  <StyledTableRow key={block.currentSlot}>
+                    <CustomTooltip text={blockHash}>
+                      <StyledTableCell
+                        sx={{
+                          maxWidth: '20vw',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                        component="th"
+                        scope="block"
+                      >
+                        {blockHash}
+                      </StyledTableCell>
+                    </CustomTooltip>
+                    <StyledTableCell>{block.currentSlot}</StyledTableCell>
+                    <StyledTableCell>
+                      {block.result.transactionCount ?? ''}
+                    </StyledTableCell>
+                    <CustomTooltip text={block.result.validator}>
+                      <StyledTableCell
+                        sx={{
+                          maxWidth: '20vw',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}
+                      >
+                        {blockLeader}
+                      </StyledTableCell>
+                    </CustomTooltip>
+                    <StyledTableCell align="right">
+                      {block.result.feeRewards
+                        ? (block.result.feeRewards * 0.000000001).toFixed(7)
+                        : 0}
+                    </StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
