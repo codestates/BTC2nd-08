@@ -20,5 +20,9 @@ export default function CustomizedTooltips({
   children: ReactElement<any, any>;
   text?: string;
 }) {
-  return text ? <LightTooltip title={text}>{children}</LightTooltip> : null;
+  return text ? (
+    <LightTooltip title={text}>{children}</LightTooltip>
+  ) : (
+    <>{children}</>
+  );
 }
