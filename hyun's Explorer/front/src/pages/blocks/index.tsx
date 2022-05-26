@@ -97,10 +97,12 @@ export default function CustomizedTables() {
             </TableHead>
             <TableBody>
               {data.map((block: IScanData) => {
-                const blockHash = block.result.blockhash
-                  ? block.result.blockhash
-                  : '❗' + block.result.message;
+                const blockHash =
+                  block.result.blockhash ?? '❗' + block.result.message;
 
+                const blockLeader = block.result.validator ?? 'Skipped slot';
+
+                console.log(block.result.validator ?? 123);
                 return (
                   <StyledTableRow key={block.currentSlot}>
                     <CustomTooltip text={blockHash}>
@@ -119,9 +121,9 @@ export default function CustomizedTables() {
                     </CustomTooltip>
                     <StyledTableCell>{block.currentSlot}</StyledTableCell>
                     <StyledTableCell>
-                      {block.result.transactionCount}
+                      {block.result.transactionCount ?? '1'}
                     </StyledTableCell>
-                    <CustomTooltip text={block.result.validator ?? undefined}>
+                    <CustomTooltip text={blockLeader}>
                       <StyledTableCell
                         sx={{
                           maxWidth: '20vw',
@@ -129,12 +131,13 @@ export default function CustomizedTables() {
                           textOverflow: 'ellipsis',
                         }}
                       >
-                        {block.result.validator}
+                        {blockLeader}
                       </StyledTableCell>
                     </CustomTooltip>
                     <StyledTableCell align="right">
-                      {block.result.feeRewards &&
-                        (block.result.feeRewards * 0.000000001).toFixed(7)}
+                      {block.result.feeRewards
+                        ? (block.result.feeRewards * 0.000000001).toFixed(7)
+                        : 0}
                     </StyledTableCell>
                   </StyledTableRow>
                 );
