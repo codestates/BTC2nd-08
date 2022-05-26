@@ -99,7 +99,6 @@ export default function CustomizedTables() {
               {data.map((block: IScanData) => {
                 const blockHash =
                   block.result.blockhash ?? '❗' + block.result.message;
-
                 const blockLeader = block.result.validator ?? 'Skipped slot';
 
                 console.log(block.result.validator ?? 123);
@@ -121,9 +120,9 @@ export default function CustomizedTables() {
                     </CustomTooltip>
                     <StyledTableCell>{block.currentSlot}</StyledTableCell>
                     <StyledTableCell>
-                      {block.result.transactionCount ?? '1'}
+                      {block.result.transactionCount ?? ''}
                     </StyledTableCell>
-                    <CustomTooltip text={blockLeader}>
+                    <CustomTooltip text={block.result.validator}>
                       <StyledTableCell
                         sx={{
                           maxWidth: '20vw',
