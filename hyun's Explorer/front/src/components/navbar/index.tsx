@@ -2,7 +2,8 @@ import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import NavMenu from './NavMenu';
-import Search from '../Searchbar';
+import Price from '../Price';
+import Logo from '../Logo';
 
 const wrapper = {
   position: 'sticky',
@@ -36,7 +37,10 @@ const rightItemsCss = {
 function Navbar() {
   return (
     <Box sx={wrapper}>
-      <Box sx={leftItemsCss}>{/* <Search /> */}</Box>
+      <Box sx={leftItemsCss}>
+        <Logo />
+        <Price />
+      </Box>
       <Box sx={rightItemsCss}>
         <NavMenu text="Blocks" />
         <NavMenu text="Transactions" />
