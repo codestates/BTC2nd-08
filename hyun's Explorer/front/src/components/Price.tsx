@@ -4,13 +4,6 @@ import { getSolPrice } from '../api/price';
 
 function Price() {
   const { data, isLoading } = useQuery(['navbar', 'price'], getSolPrice());
-
-  if (!isLoading)
-    console.log(
-      data[0].price_change_percentage_24h < 0
-        ? 'palette.error.light'
-        : 'pallette.main.main'
-    );
   return (
     <>
       {!isLoading && (
