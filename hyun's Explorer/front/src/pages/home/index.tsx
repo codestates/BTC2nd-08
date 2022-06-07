@@ -1,5 +1,5 @@
-import { useQuery } from 'react-query';
 import * as solanaWeb3 from '@solana/web3.js';
+import { useQuery } from 'react-query';
 import { Box, Grid } from '@mui/material';
 import Supply from './Supply';
 import { getSolPrice } from '../../api/price';
