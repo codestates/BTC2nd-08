@@ -101,7 +101,6 @@ export default function CustomizedTables() {
                   block.result.blockhash ?? '❗' + block.result.message;
                 const blockLeader = block.result.validator ?? 'Skipped slot';
 
-                console.log(block.result.validator ?? 123);
                 return (
                   <StyledTableRow key={block.currentSlot}>
                     <CustomTooltip text={blockHash}>
